@@ -1,0 +1,9 @@
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Office Furniture</a>
+    <ng-template [ngIf]="user" [ngIfElse]="noUser">
+        <button class="btn btn-right btn-outline-success me-2" (click)="logout()">Logout</button>
+    </ng-template>
+    <ng-template #noUser>
+        <button class="btn btn-right btn-outline-success me-2" routerLink="/login" type="button">Login</button>
+    </ng-template>
+</nav>
