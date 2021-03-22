@@ -9,7 +9,7 @@ import { User } from 'src/app/_models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private userSubject: BehaviorSubject<User>;
+    private userSubject: BehaviorSubject<any>;
     public user: Observable<User>;
 
     constructor(
@@ -17,7 +17,7 @@ export class AuthenticationService {
         private http: HttpClient
     ) {
         const userJson = localStorage.getItem('user');
-        this.userSubject = new BehaviorSubject<User>(userJson !== null ? JSON.parse(userJson) : null);
+        this.userSubject = new BehaviorSubject<any>(userJson !== null ? JSON.parse(userJson) : null);
         this.user = this.userSubject.asObservable();
     }
 
@@ -29,7 +29,7 @@ export class AuthenticationService {
         const headers = new HttpHeaders({
             'Content-Type': 'application/x-www-form-urlencoded'
         });
-        var data = "username=" + username + "&password=" + password;
+        const data = "username=" + username + "&password=" + password;
 
         return this.http.post<User>(`${environment.apiUrl}/customers/login`, data , {headers})
             .pipe(map(user => {
@@ -45,7 +45,7 @@ export class AuthenticationService {
         // remove user from local storage to log user out
         localStorage.removeItem('user');
         const userJson = localStorage.getItem('user');
-        this.userSubject = new BehaviorSubject<User>(userJson !== null ? JSON.parse(userJson) : null);
-        this.router.navigate(['/login']);
+        this.userSubject.next(null);
+        this.router.navigate(['/']);
     }
 }
