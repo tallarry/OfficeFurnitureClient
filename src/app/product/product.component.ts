@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
-import { Product } from '../product'
+import { ProductService } from 'src/app/_services/product.service';
+import { Product } from 'src/app/_models/product'
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Product } from './product';
+import { Product } from 'src/app/_models/product';
 import { throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -10,7 +10,7 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class ProductService {
 
-  private baseUrl = "http://localhost:8080/OfficeFurniture/rest/products"
+  public baseUrl = "http://localhost:8080/OfficeFurniture/rest/products"
 
   constructor( private http: HttpClient) { }
 
