@@ -16,11 +16,11 @@
                         <div *ngIf="f.password.errors.required">Password is required</div>
                     </div>
                 </div>
-                <button [disabled]="loading" class="btn btn-primary">
+                <button [disabled]="loading" class="btn btn-centers btn-primary">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Login
                 </button>
-                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">Username or password incorrect</div>
             </form>
         </div>
     </div>

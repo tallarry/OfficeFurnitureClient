@@ -1,0 +1,21 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div *ngFor="let product of products" class="col">
+            <div  class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{product.description}}</p>
+                    <ng-template [ngIf]="product.discountPercent !==0" [ngIfElse]="noDiscount">
+                        <h6 class="card-subtitle mb-2 text-muted">List price: <s>{{product.standardPrice}} RON</s></h6>
+                        <h6 class="card-subtitle mb-2">Your price: {{product.finalPrice}} RON</h6>
+                        <div class="card-footer fs-1 text-center">{{product.discountPercent}}% OFF</div>
+                    </ng-template>
+                    <ng-template #noDiscount>
+                        <h6 class="card-subtitle mb-2">Price: {{product.finalPrice}} RON</h6>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

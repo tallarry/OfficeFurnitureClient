@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/_models/product';
 import { throwError} from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  public baseUrl = "http://localhost:8080/OfficeFurniture/rest/products"
+  private baseUrl = "http://localhost:8080/OfficeFurniture/rest/products"
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient, private authService:AuthenticationService) { }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
@@ -27,7 +28,16 @@ export class ProductService {
     return throwError(errorMessage);
   }
 
-  getProducts(): Observable<Product[]>{
+  getProducts(additionalPath: string): Observable<Product[]>{
+    if(additionalPath !== "") {
+      const httpOpt = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + this.authService.userValue.authdata!,
+        })
+      }
+      return this.http.get<Product[]>(this.baseUrl.concat(additionalPath), httpOpt).pipe(catchError(this.handleError));
+    }
     return this.http.get<Product[]>(this.baseUrl).pipe(catchError(this.handleError));
   }
 }

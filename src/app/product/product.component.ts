@@ -14,10 +14,10 @@ export class ProductComponent implements OnInit, OnDestroy {
   public products: Product[] = [];
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private productService: ProductService) { }
+  constructor(protected productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getProducts().pipe(takeUntil(this.destroy$)).subscribe({next: (data: Product[]) =>{
+    this.productService.getProducts("").pipe(takeUntil(this.destroy$)).subscribe({next: (data: Product[]) =>{
       console.log(data);
       this.products = data;
     },
